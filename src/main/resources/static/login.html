@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>自定义登录页面</title>
+    <!-- import Vue3 -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- import element-plus CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css">
+    <!-- import element-plus JavaScript -->
+    <script src="https://unpkg.com/element-plus"></script>
+    <!-- axios的引入 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <style>
+        .formBox {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            width: 30%;
+            height: 300px;
+            transform: translate(-50%, -50%);
+            /* border: #101010 1px solid; */
+
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <div class="formBox">
+        <el-form label-width="60px" label-position="top">
+            <el-form-item label="用户名">
+                <el-input v-model="username"></el-input>
+            </el-form-item>
+            <el-form-item label="密码">
+                <el-input v-model="password" type="password"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="login()">登录</el-button>
+                <el-button>Cancel</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
+
+</div>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                username: "",
+                password: ""
+            }
+        },
+        methods: {
+            login() {
+                axios.post("/login?username=" + this.username + "&password=" + this.password).then((res) => {
+                    if (res.data == "success") {
+                        this.$message.success("登录成功");
+                    } else {
+                        this.$message.error("用户名或密码错误");
+                    }
+                })
+            }
+        }
+    });
+
+    app.use(ElementPlus)
+    app.mount("#app")
+</script>
+</body>
+
+</html>
