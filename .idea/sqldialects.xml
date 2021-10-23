@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/admin_user.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/data/admin_user_data.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/data/permission_data.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/data/role-data.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/data/user-data.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/data/user_role_data.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/permission.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/role.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/user.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/user_0.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/user_1.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/sql/user_2.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/sql/user_role.sql" dialect="GenericSQL" />
   </component>
 </project>

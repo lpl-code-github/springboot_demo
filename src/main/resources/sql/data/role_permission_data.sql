@@ -1,0 +1,1 @@
+INSERT INTO `role_permission` VALUES (1, 1, 1);

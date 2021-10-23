@@ -1,5 +1,8 @@
 package com.lpl.boot.config;
 
+import com.lpl.boot.service.SecurityUserService;
+import org.elasticsearch.search.SearchService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,14 +26,14 @@ import java.io.PrintWriter;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //下面这两行配置表示在内存中配置了两个用户,密码为main方法生成的密码
-        auth.inMemoryAuthentication()
-                .withUser("admin").roles("admin").password("$2a$10$5vy6739h8cZJlQ/svPtoNe0tbNYg6ESxyVmQTQj3xpzyqHfQz2jyq")
-                .and()
-                .withUser("user").roles("user").password("$2a$10$5vy6739h8cZJlQ/svPtoNe0tbNYg6ESxyVmQTQj3xpzyqHfQz2jyq");
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        //下面这两行配置表示在内存中配置了两个用户,密码为main方法生成的密码
+//        auth.inMemoryAuthentication()
+//                .withUser("admin").roles("admin").password("$2a$10$5vy6739h8cZJlQ/svPtoNe0tbNYg6ESxyVmQTQj3xpzyqHfQz2jyq")
+//                .and()
+//                .withUser("user").roles("user").password("$2a$10$5vy6739h8cZJlQ/svPtoNe0tbNYg6ESxyVmQTQj3xpzyqHfQz2jyq");
+//    }
 
     /**
      * spring security提供了 BCryptPasswordEncoder来进行密码编码
@@ -53,8 +56,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         System.out.println(lpl);
     }
 
+    @Autowired
+    private SecurityUserService securityUserService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.userDetailsService(securityUserService);
+
         http.authorizeRequests() //开启登录认证
                 .antMatchers("/user/findAll").hasRole("admin") //访问接口需要admin的角色
                 .antMatchers("/login").permitAll()
