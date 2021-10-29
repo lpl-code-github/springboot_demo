@@ -5,8 +5,11 @@ import org.elasticsearch.search.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -25,6 +28,7 @@ import java.io.PrintWriter;
 
 
 @Configuration
+//@EnableGlobalMethodSecurity(prePostEnabled = true)//注解授权的开启
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -56,17 +60,65 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         System.out.println(lpl);
     }
 
-    @Autowired
-    private SecurityUserService securityUserService;
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(
+                // swagger
+                "/swagger-ui/",
+                "/swagger-ui/*",
+                "/swagger-ui*/**",
+                "/swagger-ui**/**",
+                "/swagger-ui**/*",
+                "/swagger-ui/index.html",
+                "/swagger-ui/**",
+                "/webjars/**",
+                // swagger api json
+                "/v3/api-docs",
+                //用来获取支持的动作
+                "/swagger-resources/configuration/ui",
+                //用来获取api-docs的URI
+                "/swagger-resources",
+                //安全选项
+                "/swagger-resources/configuration/security",
+                "/swagger-resources/**"
+                  );
+    }
+
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.userDetailsService(securityUserService);
+        String[] SWAGGER_WHITELIST = {
+                // swagger
+                "/swagger-ui/",
+                "/swagger-ui/index.html",
+                "/swagger-ui/**",
+                //增加放行的请求 可能性
+                "/swagger-ui*/**",
+                "/swagger-ui*",
+                "/swagger*/*",
+                "/swagger*/**",
+                //
+                "/webjars/**",
+                // swagger api json
+                "/v3/api-docs",
+                //用来获取支持的动作
+                "/swagger-resources/configuration/ui",
+                //用来获取api-docs的URI
+                "/swagger-resources",
+                //安全选项
+                "/swagger-resources/configuration/security",
+                "/swagger-resources/**",
+        };
 
-        http.authorizeRequests() //开启登录认证
-                .antMatchers("/user/findAll").hasRole("admin") //访问接口需要admin的角色
+//        http.authorizeRequests() //开启登录认证
+        http.authorizeRequests()
+//                .antMatchers("/user/findAll").hasRole("admin") //访问接口需要admin的角色
+                //放行swagger
+                .antMatchers(SWAGGER_WHITELIST).permitAll()
                 .antMatchers("/login").permitAll()
-                .anyRequest().authenticated() // 其他所有的请求 只需要登录即可
+                .anyRequest().access("@authService.auth(request,authentication)")//自定义service,去实现实时的权限认证
+//                .anyRequest().authenticated() // 其他所有的请求 只需要登录即可(数据库授权不使用这条)
                 .and().formLogin()
                 .loginPage("/login.html") //自定义的登录页面
                 .loginProcessingUrl("/login") //登录处理接口
