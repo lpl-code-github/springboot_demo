@@ -21,13 +21,16 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+
     //查询所有
-    @ApiOperation(value = "获取用户列表")
     @GetMapping("findAll")
-//    @PreAuthorize("hasAnyAuthority('USER_FINDALL')")
+    @ApiOperation(value = "获取用户列表")
     public List<User> findAll(){
-        return userService.findAll();
+        return  userService.findAll();
     }
+
+
     //通过id查询
     @GetMapping("findById")
     @ApiOperation(value = "查询用户信息",notes = "根据id查询用户信息")

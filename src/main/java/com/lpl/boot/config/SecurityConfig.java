@@ -63,24 +63,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(
-                // swagger
-                "/swagger-ui/",
-                "/swagger-ui/*",
-                "/swagger-ui*/**",
-                "/swagger-ui**/**",
-                "/swagger-ui**/*",
-                "/swagger-ui/index.html",
-                "/swagger-ui/**",
-                "/webjars/**",
-                // swagger api json
-                "/v3/api-docs",
-                //用来获取支持的动作
-                "/swagger-resources/configuration/ui",
-                //用来获取api-docs的URI
-                "/swagger-resources",
-                //安全选项
-                "/swagger-resources/configuration/security",
-                "/swagger-resources/**"
+//                // swagger
+//                "/swagger-ui/",
+//                "/swagger-ui/*",
+//                "/swagger-ui*/**",
+//                "/swagger-ui**/**",
+//                "/swagger-ui**/*",
+//                "/swagger-ui/index.html",
+//                "/swagger-ui/**",
+//                "/webjars/**",
+//                // swagger api json
+//                "/v3/api-docs",
+//                //用来获取支持的动作
+//                "/swagger-resources/configuration/ui",
+//                //用来获取api-docs的URI
+//                "/swagger-resources",
+//                //安全选项
+//                "/swagger-resources/configuration/security",
+//                "/swagger-resources/**"
+
+                "/**"
                   );
     }
 
@@ -89,26 +91,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         String[] SWAGGER_WHITELIST = {
-                // swagger
-                "/swagger-ui/",
-                "/swagger-ui/index.html",
-                "/swagger-ui/**",
-                //增加放行的请求 可能性
-                "/swagger-ui*/**",
-                "/swagger-ui*",
-                "/swagger*/*",
-                "/swagger*/**",
-                //
-                "/webjars/**",
-                // swagger api json
-                "/v3/api-docs",
-                //用来获取支持的动作
-                "/swagger-resources/configuration/ui",
-                //用来获取api-docs的URI
-                "/swagger-resources",
-                //安全选项
-                "/swagger-resources/configuration/security",
-                "/swagger-resources/**",
+//                // swagger
+//                "/swagger-ui/",
+//                "/swagger-ui/index.html",
+//                "/swagger-ui/**",
+//                //增加放行的请求 可能性
+//                "/swagger-ui*/**",
+//                "/swagger-ui*",
+//                "/swagger*/*",
+//                "/swagger*/**",
+//                //
+//                "/webjars/**",
+//                // swagger api json
+//                "/v3/api-docs",
+//                //用来获取支持的动作
+//                "/swagger-resources/configuration/ui",
+//                //用来获取api-docs的URI
+//                "/swagger-resources",
+//                //安全选项
+//                "/swagger-resources/configuration/security",
+//                "/swagger-resources/**",
+
+                "/**"
         };
 
 //        http.authorizeRequests() //开启登录认证

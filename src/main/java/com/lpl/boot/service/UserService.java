@@ -24,12 +24,8 @@ public class UserService {
 
     //查询所有
     public List<User> findAll(){
-        //LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        //List<User> users = userMapper.selectList(queryWrapper);
-        //return users;
-
         /**
-         * 增加缓存
+         * 对Redis缓存的判断：
          * 如果缓存有，直接返回
          * 如果缓存没有，从数据库返回，并放到缓存
          */
