@@ -18,12 +18,12 @@ import java.util.Collection;
 @Slf4j
 public class AuthService {
 
-    @Autowired
-    private AdminUserMapper adminUserMapper;
-    @Autowired
-    private RoleMapper roleMapper;
-    @Autowired
-    private PermissionMapper permissionMapper;
+//    @Autowired
+//    private AdminUserMapper adminUserMapper;
+//    @Autowired
+//    private RoleMapper roleMapper;
+//    @Autowired
+//    private PermissionMapper permissionMapper;
 
     public boolean auth(HttpServletRequest request, Authentication authentication){
         log.info("request url:{}",request.getRequestURI());
